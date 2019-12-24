@@ -7,7 +7,7 @@ import UIKit
 /// App 版本 檢查
 public class RCheckVersion {
     
-    static let share: RCheckVersion = RCheckVersion()
+    public static let share: RCheckVersion = RCheckVersion()
     /// 大版號位置 代表數字  [1.0.0 ->  (2,1,0)]
     public var majorVersion: Int = 2
     // 取得版本資訊網址

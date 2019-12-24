@@ -13,6 +13,7 @@ public class RAlertOption {
     private(set) var nextTimeTitle: String = "下次提醒"
     private(set) var confirmTitle: String = "前往更新"
     
+    public init() { }
     
     /// 設定 Alert Title
     /// - Parameter title: 標題
