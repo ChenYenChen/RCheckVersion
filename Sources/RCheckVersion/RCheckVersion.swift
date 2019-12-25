@@ -8,7 +8,7 @@ import UIKit
 public class RCheckVersion {
     
     public static let share: RCheckVersion = RCheckVersion()
-    /// 大版號位置 代表數字  [1.0.0 ->  (2,1,0)]
+    /// 大版號位置 代表數字  (1.0.0 ->  [0, 1, 2])
     public var majorVersion: Int = 2
     // 取得版本資訊網址
     private var linkURL: String = "https://itunes.apple.com/tw/lookup?bundleId=\(Bundle.main.bundleIdentifier ?? "")"
@@ -121,7 +121,10 @@ public class RCheckVersion {
                 storeArray.append("0")
             }
         }
-        guard storeArray.count > position && localArray.count > position else { return .none }
+        guard storeArray.count > 0 && localArray.count > 0 else { return .none }
+        guard storeArray.count > position && localArray.count > position else {
+            return self.checkVersion(store: version, with: currentVersion, version: localArray.count - 1)
+        }
         for row in 0..<localArray.count {
             if let storeVersion = Int(storeArray[row]), let local = Int(localArray[row]), storeVersion != local {
                 if storeVersion > local {
