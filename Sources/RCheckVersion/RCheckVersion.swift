@@ -13,7 +13,7 @@ public class RCheckVersion {
     // 取得版本資訊網址
     private var linkURL: String = "https://itunes.apple.com/tw/lookup?bundleId=\(Bundle.main.bundleIdentifier ?? "")"
     // Alert 屬性
-    private var alertOption: RAlertOption = RAlertOption()
+    private var alertOption: RAlertOption
     // 目前版本
     lazy private var currentVersion: String = {
         guard let current = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String else { return "" }
@@ -35,6 +35,13 @@ public class RCheckVersion {
         case smallVersion
         /// 不需更新
         case none
+    }
+    
+    // MARK: - init
+    private init() {
+        self.alertOption = RAlertOption(smaeVersionAction: {
+            
+        })
     }
     
     // MARK: - 設定 Alert 屬性
