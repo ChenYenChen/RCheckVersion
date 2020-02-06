@@ -156,7 +156,7 @@ public class RCheckVersion {
     private func setDefaultAction() -> ((VersionData) -> Void) {
         return { [unowned self] information in
             guard information.updateType != .none else { return }
-            self.Alert(store: information.storeLink)
+            self.Alert(store: information.storeLink, updateType: information.updateType)
         }
     }
     
