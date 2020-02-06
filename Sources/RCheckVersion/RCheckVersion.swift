@@ -73,7 +73,9 @@ public class RCheckVersion {
     
     // MARK: - error action
     private func errorBlock() {
-        self.customAction?((.none, ""))
+        DispatchQueue.main.async {
+            self.customAction?((.none, ""))
+        }
     }
     
     // MARK: - 至 App Store 查看版本資訊
@@ -97,7 +99,9 @@ public class RCheckVersion {
                     return
                 }
                 let type = self.checkVersion(store: version.version, with: self.currentVersion, version: self.majorVersion)
-                self.customAction?((type, version.storeLink))
+                DispatchQueue.main.async {
+                    self.customAction?((type, version.storeLink))
+                }
             } catch {
                 self.errorBlock()
             }
@@ -150,22 +154,23 @@ public class RCheckVersion {
     
     // MARK: - default set Alert Action
     private func setDefaultAction() -> ((VersionData) -> Void) {
-        return { [unowned self] version in
-            guard version.updateType != .none else { return }
-            self.Alert(store: version.storeLink)
+        return { [unowned self] information in
+            guard information.updateType != .none else { return }
+            self.Alert(store: information.storeLink)
         }
     }
     
     // MARK: - Alert
-    private func Alert(store url: String) {
+    private func Alert(store url: String, updateType: UpdateType) {
         let alert = UIAlertController(title: self.alertOption.alertTitle, message: "", preferredStyle: .alert)
         var button = UIAlertAction(title: self.alertOption.confirmTitle, style: .default) { (action) in
             self.openAppStore(with: url)
         }
         alert.addAction(button)
-        if !self.alertOption.nextTimeTitle.isEmpty {
+        
+        if self.alertOption.showNextType.contains(updateType) {
             button = UIAlertAction(title: self.alertOption.nextTimeTitle, style: .cancel) { (action) in
-                
+                self.alertOption.nextUpdateAction?()
             }
             alert.addAction(button)
         }
