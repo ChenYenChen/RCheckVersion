@@ -41,8 +41,9 @@ public class RCheckVersion {
     
     /// 設定 Alert 屬性
     /// - Parameter option: 設定 Alert 文字訊息
-    public func setAlert(option: RAlertOption) {
+    public func setAlert(option: RAlertOption) -> Self {
         self.alertOption = option
+        return self
     }
     
     // MARK: - 自訂版本控制網址
@@ -155,7 +156,10 @@ public class RCheckVersion {
     // MARK: - default set Alert Action
     private func setDefaultAction() -> ((VersionData) -> Void) {
         return { [unowned self] information in
-            guard information.updateType != .none else { return }
+            guard information.updateType != .none else {
+                self.alertOption.sameVersionAction?()
+                return
+            }
             self.Alert(store: information.storeLink, updateType: information.updateType)
         }
     }

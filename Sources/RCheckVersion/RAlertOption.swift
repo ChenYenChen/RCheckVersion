@@ -14,9 +14,12 @@ public class RAlertOption {
     private(set) var confirmTitle: String = "前往更新"
     private(set) var showNextType: [RCheckVersion.UpdateType] = []
     private(set) var nextUpdateAction: (() -> Void)?
+    private(set) var sameVersionAction: (() -> Void)?
     
-    
-    public init() { }
+    /// 不需更新時的事件
+    public init(smaeVersionAction: @escaping (() -> Void)) {
+        self.sameVersionAction = smaeVersionAction
+    }
     
     /// 設定 Alert Title
     /// - Parameter title: 標題
@@ -46,8 +49,8 @@ public class RAlertOption {
         return self
     }
     
-    public func set(nextUpdateAction: @escaping (() -> Void)) -> Self {
-        self.nextUpdateAction = nextUpdateAction
-        return self
+    /// 下次更新
+    public func nextUpdate(action: @escaping (() -> Void)) {
+        self.nextUpdateAction = action
     }
 }
