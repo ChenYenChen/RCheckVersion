@@ -16,41 +16,37 @@ public class RAlertOption {
     private(set) var nextUpdateAction: (() -> Void)?
     private(set) var sameVersionAction: (() -> Void)?
     
-    /// 不需更新時的事件
-    public init(smaeVersionAction: @escaping (() -> Void)) {
-        self.sameVersionAction = smaeVersionAction
+    /// 設定 Alert 是否顯示下次更新
+    /// - Parameter showNextVersion: 哪些版本更新需要顯示下次更新
+    public init(showNextVersion type: RCheckVersion.UpdateType...) {
+        self.showNextType = type
     }
     
     /// 設定 Alert Title
     /// - Parameter title: 標題
-    public func set(title: String) -> Self {
+    public func set(title: String) {
         self.alertTitle = title
-        return self
     }
     
     /// 設定 Alert 下次更新的文字
     /// - Parameter next: 按鈕文字
-    public func set(next: String) -> Self {
+    public func set(next: String)  {
         self.nextTimeTitle = next
-        return self
     }
     
     /// 設定 Alert 前往更新的文字
     /// - Parameter goTo: 按鈕文字
-    public func set(goTo: String) -> Self {
+    public func set(goTo: String) {
         self.confirmTitle = goTo
-        return self
-    }
-    
-    /// 設定 Alert 是否顯示下次更新
-    /// - Parameter showNext: 哪些版本更新需要顯示下次更新
-    public func set(showNext: RCheckVersion.UpdateType...) -> Self {
-        self.showNextType = showNext
-        return self
     }
     
     /// 下次更新
     public func nextUpdate(action: @escaping (() -> Void)) {
         self.nextUpdateAction = action
+    }
+    
+    /// 不須更新時
+    public func sameVersion(action: @escaping (() -> Void)) {
+        self.sameVersionAction = action
     }
 }
