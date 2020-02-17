@@ -39,9 +39,7 @@ public class RCheckVersion {
     
     // MARK: - init
     private init() {
-        self.alertOption = RAlertOption(smaeVersionAction: {
-            
-        })
+        self.alertOption = RAlertOption(showNextVersion: .smallVersion)
     }
     
     // MARK: - 設定 Alert 屬性
