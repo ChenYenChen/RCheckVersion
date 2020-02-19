@@ -23,19 +23,19 @@ public class RAlertOption {
     }
     
     /// 設定 Alert Title
-    /// - Parameter title: 標題
+    /// - Parameter title: 標題  default : "發現新版本"
     public func set(title: String) {
         self.alertTitle = title
     }
     
     /// 設定 Alert 下次更新的文字
-    /// - Parameter next: 按鈕文字
+    /// - Parameter next: 按鈕文字  default : "下次提醒"
     public func set(next: String)  {
         self.nextTimeTitle = next
     }
     
     /// 設定 Alert 前往更新的文字
-    /// - Parameter goTo: 按鈕文字
+    /// - Parameter goTo: 按鈕文字  default : "前往更新"
     public func set(goTo: String) {
         self.confirmTitle = goTo
     }
